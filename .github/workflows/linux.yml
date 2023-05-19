@@ -1,0 +1,102 @@
+name: Linux
+
+on: [push]
+
+jobs:
+  build:
+    name: ${{ matrix.config.name }}
+    runs-on: ${{ matrix.config.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        config:
+          - { name: "Ubuntu", os: ubuntu-latest, target: "linux" }
+        python-version: [3.7]
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Set up Python ${{ matrix.python-version }}
+        uses: actions/setup-python@v1
+        with:
+          python-version: ${{ matrix.python-version }}
+
+      - name: Upgrade PIP
+        run: python3 -m pip install --upgrade pip setuptools wheel
+
+      - name: Display Python version
+        run: python3 --version
+
+      - name: Display PIP version
+        run: python3 -m pip --version
+
+      - name: Install CMake
+        uses: jwlawson/actions-setup-cmake@v1.8
+        with:
+          cmake-version: "3.20.0"
+
+      - name: Install Ninja
+        uses: seanmiddleditch/gha-setup-ninja@master
+        with:
+          version: "1.10.0"
+
+      - name: Ezored - Install python dependencies
+        run: python3 -m pip install -r requirements.txt
+
+      - name: Ezored - Install glue code tool
+        run: |
+          python make.py gluecode setup
+          python make.py gluecode version
+
+      - name: Ezored - Setup conan
+        run: python3 make.py conan setup
+
+      - name: Ezored - Test Prepare
+        run: python3 make.py target tests prepare
+
+      - name: Ezored - Test Run
+        run: python3 make.py target tests run
+
+      - name: Ezored - Prepare
+        run: python3 make.py target ${{ matrix.config.target }} prepare
+
+      - name: Ezored - Build
+        run: python3 make.py target ${{ matrix.config.target }} build
+
+      - name: Ezored - Package
+        run: python3 make.py target ${{ matrix.config.target }} package
+
+      - name: Ezored - Dist generate
+        run: python3 make.py target ${{ matrix.config.target }} dist generate
+
+      - name: Github Action - Upload
+        uses: actions/upload-artifact@v2
+        with:
+          name: artifact-${{ matrix.config.target }}.tar.gz
+          path: build/${{ matrix.config.target }}/dist/dist.tar.gz
+
+      - name: Ezored - Dist upload
+        if: startsWith(github.ref, 'refs/tags/v')
+        env:
+          EZORED_AWS_KEY_ID: ${{ secrets.EZORED_AWS_KEY_ID }}
+          EZORED_AWS_SECRET_KEY: ${{ secrets.EZORED_AWS_SECRET_KEY }}
+        run: python3 make.py target ${{ matrix.config.target }} dist upload --force
+
+      - name: Get release
+        id: get_release
+        uses: bruceadams/get-release@v1.2.3
+        if: startsWith(github.ref, 'refs/tags/v')
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+
+      - name: Release
+        id: upload-release-asset
+        uses: actions/upload-release-asset@v1
+        if: startsWith(github.ref, 'refs/tags/v')
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ steps.get_release.outputs.upload_url }}
+          asset_path: build/${{ matrix.config.target }}/dist/dist.tar.gz
+          asset_name: ${{ matrix.config.target }}.tar.gz
+          asset_content_type: application/gzip

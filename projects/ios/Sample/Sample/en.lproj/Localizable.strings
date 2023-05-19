@@ -1,0 +1,31 @@
+"DialogButtonCancel" = "Cancel";
+"DialogButtonNo" = "No";
+"DialogButtonOK" = "OK";
+"DialogButtonYes" = "Yes";
+"DialogLoadingMessage" = "Loading...";
+"DialogLoadingTitle" = "Message";
+"DialogProgressMessage" = "Progress: %d%%";
+"DialogTitle" = "Message";
+"DialogTitleNotification" = "Notification";
+"DialogSecretKeyMessage" = "Your secret key is:\n%@\n\nStore it with you!";
+"DialogHttpMessage" = "We do a JSON request to %@ and server return this data:\n\n%@\n\nIf the data is correct the connection works!";
+"DialogDatabaseSizeMessage" = "The size of internal database is: %d b / %.5f mb";
+
+"TitleHome" = "Home";
+"TitleSettings" = "Settings";
+"TitleListTodo" = "ToDo List";
+"TitleWebView" = "Navigator";
+
+"OptionSharedData" = "Shared Data: The value is";
+"OptionHttpRequest" = "HTTP Request";
+"OptionHttpsRequest" = "HTTPS Request";
+"OptionSecretKey" = "Get a secret key";
+"OptionFileHelper" = "File helper (file size)";
+"OptionAppVersion" = "App version";
+"OptionTodo" = "ToDo List";
+"OptionWebServer" = "Web server:";
+"OptionWebView" = "Navigator";
+
+"SimpleSearchBarHintText" = "Search...";
+"SimpleSearchBarBtReset" = "Reset";
+"SimpleSearchBarBtCancel" = "Cancel";

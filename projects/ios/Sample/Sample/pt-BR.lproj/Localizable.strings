@@ -1,0 +1,31 @@
+"DialogButtonCancel" = "Cancelar";
+"DialogButtonNo" = "Não";
+"DialogButtonOK" = "OK";
+"DialogButtonYes" = "Sim";
+"DialogLoadingMessage" = "Carregando...";
+"DialogLoadingTitle" = "Mensagem";
+"DialogProgressMessage" = "Progresso: %d%%";
+"DialogTitle" = "Mensagem";
+"DialogTitleNotification" = "Notificação";
+"DialogSecretKeyMessage" = "Sua chave secreta é:\n%@\n\nGuarde-a com você!";
+"DialogHttpMessage" = "Nós fizemos uma requisição JSON para %@ e o servidor retornou estes dados:\n\n%@\n\nSe os dados estiverem corretos então a conexão funcionou!";
+"DialogDatabaseSizeMessage" = "O tamanho do banco de dados interno é: %d b / %.5f mb";
+
+"TitleHome" = "Home";
+"TitleSettings" = "Configurações";
+"TitleListTodo" = "Lista de ToDo";
+"TitleWebView" = "Navegador";
+
+"OptionSharedData" = "Shared Data: O valor é";
+"OptionHttpRequest" = "Requisição HTTP";
+"OptionHttpsRequest" = "Requisição HTTPS";
+"OptionSecretKey" = "Obter uma chave secreta";
+"OptionFileHelper" = "File helper (tamanho do arquivo)";
+"OptionAppVersion" = "Versão do aplicativo";
+"OptionTodo" = "Lista de ToDo";
+"OptionWebServer" = "Servidor web:";
+"OptionWebView" = "Navegador";
+
+"SimpleSearchBarHintText" = "Pesquisar...";
+"SimpleSearchBarBtReset" = "Limpar";
+"SimpleSearchBarBtCancel" = "Cancelar";
